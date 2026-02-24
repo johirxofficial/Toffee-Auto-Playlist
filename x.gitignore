@@ -1,0 +1,19 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Temporary files
+*.log
+*.bak
+*.tmp
+
+# Do NOT ignore playlist files (this was causing the error)
+# toffee_playlist.json
+# toffee_playlist.m3u
