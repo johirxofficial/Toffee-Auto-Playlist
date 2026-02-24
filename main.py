@@ -78,9 +78,9 @@ def update_playlist():
     intro_channel = {
         "id": "intro",
         "category_name": "Intro",
-        "name": "intro",
-        "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/5cwRnZUBtpl-Sbt7wWrN/posters/08617b27-2af1-4035-bcc3-d054ce42ca4b.png",
-        "link": "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_5MB.mp4"
+        "name": "credit: johirxofficial",
+        "logo": "https://johirxofficial.github.io/logos/IMG_20260221_143301.png",
+        "link": "https://cdn.pixabay.com/video/2023/11/11/188742-883619742_large.mp4"
         # own credit/intro MP4
     }
 
