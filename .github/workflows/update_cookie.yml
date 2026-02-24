@@ -1,0 +1,43 @@
+name: Toffee Auto Updater
+
+on:
+  schedule:
+    - cron: '20 */6 * * *'   # Every 6 hours (Dhaka: 6:20 AM, 12:20 PM, 6:20 PM, 12:20 AM)
+  workflow_dispatch:
+
+jobs:
+  update-cookies:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: pip install requests pytz
+
+      - name: Run Updater Script
+        env:
+          TOFFEE_BEARER_TOKEN: ${{ secrets.TOFFEE_BEARER_TOKEN }}
+        run: python main.py
+
+      - name: Commit & Push Changes (if any)
+        run: |
+          git config --global user.name "actions-user"
+          git config --global user.email "actions-user@github.com"
+          
+          if [[ -n $(git status --porcelain) ]]; then
+            git add toffee_playlist.json toffee_playlist.m3u
+            git commit -m "✅ Cookie Updated: $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+            echo "✅ Changes pushed successfully."
+          else
+            echo "ℹ️ No changes detected. Skipping commit."
+          fi
