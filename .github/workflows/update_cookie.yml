@@ -2,42 +2,50 @@ name: Toffee Auto Updater
 
 on:
   schedule:
-    - cron: '0 0,6,12,18 * * *'   # Every 6 hours (Dhaka: 6:20 AM, 12:20 PM, 6:20 PM, 12:20 AM)
-  workflow_dispatch:
+    # Runs every 6 hours at the start of the hour (00:00, 06:00, 12:00, 18:00 UTC)
+    # This corresponds to 06:00, 12:00, 18:00, and 00:00 Dhaka Time.
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows manual triggering via the "Run workflow" button
 
 jobs:
   update-cookies:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures full history for stable git pushes
 
-      - name: Set up Python
+      - name: Setup Python Environment
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install Dependencies
-        run: pip install requests pytz
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pytz
 
-      - name: Run Updater Script
+      - name: Execute Updater Script
         env:
           TOFFEE_BEARER_TOKEN: ${{ secrets.TOFFEE_BEARER_TOKEN }}
         run: python main.py
 
-      - name: Commit & Push Changes (if any)
+      - name: Commit and Push Changes
         run: |
-          git config --global user.name "actions-user"
-          git config --global user.email "actions-user@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
+          # Check if the script modified any files
           if [[ -n $(git status --porcelain) ]]; then
             git add toffee_playlist.json toffee_playlist.m3u
-            git commit -m "✅ Cookie Updated: $(date +'%Y-%m-%d %H:%M:%S')"
+            git commit -m "✅ Auto-Update: $(date +'%Y-%m-%d %H:%M:%S')"
             git push
-            echo "✅ Changes pushed successfully."
+            echo "Successfully pushed changes to repository."
           else
-            echo "ℹ️ No changes detected. Skipping commit."
+            echo "No changes detected in playlist files. Skipping commit."
           fi
