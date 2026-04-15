@@ -2,7 +2,7 @@ name: Toffee Auto Updater
 
 on:
   schedule:
-    - cron: '20 */6 * * *'   # Every 6 hours (Dhaka: 6:20 AM, 12:20 PM, 6:20 PM, 12:20 AM)
+    - cron: '0 0,6,12,18 * * *'   # Every 6 hours (Dhaka: 6:20 AM, 12:20 PM, 6:20 PM, 12:20 AM)
   workflow_dispatch:
 
 jobs:
