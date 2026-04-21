@@ -12,18 +12,19 @@ CONFIG = {
     "json_file": "toffee_playlist.json",
     "m3u_file": "toffee_playlist.m3u",
 
-    # use working channel id
-    "master_channel_id": "MXnGgJkBcqxnFHJBILyR",
+    # Token from GitHub Secret
+    "token": os.getenv("TOFFEE_BEARER_TOKEN", "").strip(),
 
-    # use browser user-agent (important)
+    # Browser UA
     "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
 
-    "token": os.getenv("TOFFEE_BEARER_TOKEN"),
+    # Cookie source IDs
+    "live_cookie_id": "LnlKhJkBcqxnFHJBU8GM",
+    "default_cookie_id": "PiL635oBEef-9-uV2uCe",
 }
 
-
 # ────────────────────────────────────────────────
-# TOKEN CHECK
+# CHECK TOKEN
 # ────────────────────────────────────────────────
 if not CONFIG["token"]:
     print("❌ Missing TOFFEE_BEARER_TOKEN")
@@ -40,7 +41,7 @@ def now_dhaka():
 
 
 # ────────────────────────────────────────────────
-# SESSION HEADERS
+# HEADERS
 # ────────────────────────────────────────────────
 def build_headers():
     return {
@@ -59,10 +60,10 @@ def build_headers():
 
 
 # ────────────────────────────────────────────────
-# GET COOKIE
+# FETCH COOKIE BY CHANNEL ID
 # ────────────────────────────────────────────────
-def fetch_fresh_cookie():
-    url = f"https://entitlement-prod.services.toffeelive.com/toffee/BD/DK/web/playback/{CONFIG['master_channel_id']}"
+def fetch_cookie(channel_id):
+    url = f"https://entitlement-prod.services.toffeelive.com/toffee/BD/DK/web/playback/{channel_id}"
 
     try:
         r = requests.post(
@@ -74,37 +75,32 @@ def fetch_fresh_cookie():
 
         r.raise_for_status()
 
-        cookie_raw = r.headers.get("Set-Cookie", "")
+        raw = r.headers.get("Set-Cookie", "")
 
         match = re.search(
             r"Edge-Cache-Cookie=([^;]+)",
-            cookie_raw
+            raw
         )
 
         if match:
-            cookie = f"Edge-Cache-Cookie={match.group(1)}"
-            print(f"[{now_dhaka()}] Cookie refreshed")
-            return cookie
+            return f"Edge-Cache-Cookie={match.group(1)}"
 
-        print(f"[{now_dhaka()}] Cookie missing")
         return None
 
     except Exception as e:
-        print(f"[{now_dhaka()}] Cookie fetch failed → {e}")
+        print(f"[{now_dhaka()}] Cookie fail ({channel_id}) → {e}")
         return None
 
 
 # ────────────────────────────────────────────────
 # LOAD JSON
 # ────────────────────────────────────────────────
-def load_channels():
-    path = CONFIG["json_file"]
+def load_json():
+    if not os.path.isfile(CONFIG["json_file"]):
+        print("❌ Missing toffee_playlist.json")
+        exit(1)
 
-    if not os.path.exists(path):
-        print(f"[{now_dhaka()}] Missing {path}")
-        return None, []
-
-    with open(path, "r", encoding="utf-8") as f:
+    with open(CONFIG["json_file"], "r", encoding="utf-8") as f:
         data = json.load(f)
 
     if isinstance(data, dict):
@@ -113,6 +109,57 @@ def load_channels():
         channels = data
 
     return data, channels
+
+
+# ────────────────────────────────────────────────
+# INTRO ENTRY
+# ────────────────────────────────────────────────
+def insert_intro(channels):
+    intro_id = "intro"
+
+    channels = [
+        x for x in channels
+        if x.get("id") != intro_id
+    ]
+
+    channels.insert(0, {
+        "id": "intro",
+        "category_name": "Intro",
+        "name": "credit: johirxofficial",
+        "logo": "https://johirxofficial.github.io/logos/IMG_20260221_143301.png",
+        "link": "https://cdn.pixabay.com/video/2023/11/11/188742-883619742_large.mp4"
+    })
+
+    return channels
+
+
+# ────────────────────────────────────────────────
+# APPLY COOKIES
+# Live category = live cookie
+# others = default cookie
+# ────────────────────────────────────────────────
+def apply_cookies(channels, live_cookie, default_cookie):
+    count = 0
+
+    for ch in channels:
+        if ch.get("id") == "intro":
+            continue
+
+        if not ch.get("link"):
+            continue
+
+        category = str(
+            ch.get("category_name", "")
+        ).strip().lower()
+
+        if category == "live":
+            ch["cookie"] = live_cookie
+        else:
+            ch["cookie"] = default_cookie
+
+        count += 1
+
+    return count
 
 
 # ────────────────────────────────────────────────
@@ -136,43 +183,7 @@ def save_json(original, channels):
 
 
 # ────────────────────────────────────────────────
-# INTRO ENTRY
-# ────────────────────────────────────────────────
-def add_intro(channels):
-    intro_id = "intro"
-
-    channels = [
-        x for x in channels
-        if x.get("id") != intro_id
-    ]
-
-    channels.insert(0, {
-        "id": "intro",
-        "category_name": "Intro",
-        "name": "credit: johirxofficial",
-        "logo": "https://johirxofficial.github.io/logos/IMG_20260221_143301.png",
-        "link": "https://cdn.pixabay.com/video/2023/11/11/188742-883619742_large.mp4"
-    })
-
-    return channels
-
-
-# ────────────────────────────────────────────────
-# UPDATE COOKIE
-# ────────────────────────────────────────────────
-def apply_cookie(channels, cookie):
-    count = 0
-
-    for ch in channels:
-        if ch.get("id") != "intro" and ch.get("link"):
-            ch["cookie"] = cookie
-            count += 1
-
-    return count
-
-
-# ────────────────────────────────────────────────
-# BUILD M3U
+# GENERATE M3U
 # ────────────────────────────────────────────────
 def generate_m3u(channels):
     with open(CONFIG["m3u_file"], "w", encoding="utf-8") as f:
@@ -184,10 +195,10 @@ def generate_m3u(channels):
             if not link:
                 continue
 
+            cid = ch.get("id", "")
             name = ch.get("name", "Unknown")
             logo = ch.get("logo", "")
             group = ch.get("category_name", "TV")
-            cid = ch.get("id", "")
 
             f.write(
                 f'#EXTINF:-1 tvg-id="{cid}" tvg-logo="{logo}" group-title="{group}",{name}\n'
@@ -198,9 +209,10 @@ def generate_m3u(channels):
             )
 
             if cid != "intro":
-                if ch.get("cookie"):
+                cookie = ch.get("cookie")
+                if cookie:
                     f.write(
-                        f'#EXTVLCOPT:http-cookie={ch["cookie"]}\n'
+                        f'#EXTVLCOPT:http-cookie={cookie}\n'
                     )
 
             f.write(link + "\n\n")
@@ -212,22 +224,31 @@ def generate_m3u(channels):
 def main():
     print(f"[{now_dhaka()}] Starting update")
 
-    cookie = fetch_fresh_cookie()
+    # Fetch both cookies
+    live_cookie = fetch_cookie(CONFIG["live_cookie_id"])
+    default_cookie = fetch_cookie(CONFIG["default_cookie_id"])
 
-    if not cookie:
-        print(f"[{now_dhaka()}] Cannot continue")
+    if not live_cookie:
+        print("❌ Live cookie failed")
         return
 
-    original, channels = load_channels()
-
-    if original is None:
+    if not default_cookie:
+        print("❌ Default cookie failed")
         return
 
-    channels = add_intro(channels)
+    print(f"[{now_dhaka()}] Cookies refreshed")
 
-    total = apply_cookie(channels, cookie)
+    data, channels = load_json()
 
-    save_json(original, channels)
+    channels = insert_intro(channels)
+
+    total = apply_cookies(
+        channels,
+        live_cookie,
+        default_cookie
+    )
+
+    save_json(data, channels)
 
     print(f"[{now_dhaka()}] JSON updated ({total} channels)")
 
