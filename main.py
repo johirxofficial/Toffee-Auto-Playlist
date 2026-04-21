@@ -12,7 +12,7 @@ import pytz
 CONFIG = {
     "json_file": "toffee_playlist.json",
     "m3u_file": "toffee_playlist.m3u",
-    "master_channel_id": "5cwRnZUBtpl-Sbt7wWrN",   # used only to get cookie
+    "master_channel_id": "LnlKhJkBcqxnFHJBU8GM",   # used only to get cookie
     "user_agent": "okhttp/4.11.0",
     "token": os.getenv("TOFFEE_BEARER_TOKEN"),
 }
