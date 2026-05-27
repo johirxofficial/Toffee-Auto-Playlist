@@ -17,3 +17,10 @@ env/
 # Do NOT ignore playlist files (this was causing the error)
 # toffee_playlist.json
 # toffee_playlist.m3u
+# Ignore the actual python script
+main.py
+
+# Ignore local environment/caches
+__pycache__/
+*.pyc
+.env
