@@ -2,10 +2,9 @@ name: Toffee Auto Updater
 
 on:
   schedule:
-    # Runs every 6 hours at the start of the hour (00:00, 06:00, 12:00, 18:00 UTC)
-    # This corresponds to 06:00, 12:00, 18:00, and 00:00 Dhaka Time.
+    # প্রতি ৬ ঘণ্টা পর পর অটোমেটিক রান হবে (ধাকা টাইম: রাত ১২টা, সকাল ৬টা, দুপুর ১২টা, সন্ধ্যা ৬টা)
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Allows manual triggering via the "Run workflow" button
+  workflow_dispatch: # ম্যানুয়ালি রান করার বাটন অন রাখবে
 
 jobs:
   update-cookies:
@@ -18,7 +17,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Ensures full history for stable git pushes
+          fetch-depth: 0
 
       - name: Setup Python Environment
         uses: actions/setup-python@v5
@@ -30,18 +29,31 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests pytz
 
+      - name: Decrypt and Unzip Main Script
+        env:
+          ZIP_PASSWORD: ${{ secrets.ZIP_PASSWORD }}
+        run: |
+          # সিক্রেট পাসওয়ার্ড দিয়ে main.py.zip আনজিপ করা হচ্ছে
+          unzip -P "$ZIP_PASSWORD" main.py.zip
+
       - name: Execute Updater Script
         env:
           TOFFEE_BEARER_TOKEN: ${{ secrets.TOFFEE_BEARER_TOKEN }}
         run: python main.py
+
+      - name: Shred and Clean Decrypted Script
+        if: always() # স্ক্রিপ্ট সফল হোক বা ফেইল, কোড যেন অবশ্যই ডিলিট হয়
+        run: |
+          # রানার থেকে main.py চিরতরে রিমুভ করা হচ্ছে
+          rm -f main.py
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Check if the script modified any files
-          if [[ -n $(git status --porcelain) ]]; then
+          # শুধুমাত্র মডিফাইড json এবং m3u ফাইল গিটহাবে পুশ হবে
+          if [[ -n $(git status --porcelain toffee_playlist.json toffee_playlist.m3u) ]]; then
             git add toffee_playlist.json toffee_playlist.m3u
             git commit -m "✅ Auto-Update: $(date +'%Y-%m-%d %H:%M:%S')"
             git push
