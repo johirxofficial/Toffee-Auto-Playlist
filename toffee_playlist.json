@@ -7,48 +7,6 @@
     "link": "https://cdn.pixabay.com/video/2023/11/11/188742-883619742_large.mp4"
   },
   {
-    "id": "JS1AqZgBNnOkwJLWlwg-",
-    "category_name": "Live",
-    "name": "EPL channel 1",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/JS1AqZgBNnOkwJLWlwg-/posters/08617b27-2af1-4035-bcc3-d054ce42ca4b.png",
-    "link": "https://mprod-cdn.toffeelive.com/live/match-1/index.m3u8"
-  },
-  {
-    "id": "Mi1QqZgBNnOkwJLWxggo",
-    "category_name": "Live",
-    "name": "EPL channel 2",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/Mi1QqZgBNnOkwJLWxggo/posters/3e9d4d0a-a346-4b39-92b5-13e9238ad240.png",
-    "link": "https://mprod-cdn.toffeelive.com/live/match-2/index.m3u8"
-  },
-  {
-    "id": "Pi1TqZgBNnOkwJLWVggf",
-    "category_name": "Live",
-    "name": "EPL channel 3",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/Pi1TqZgBNnOkwJLWVggf/posters/d0bb78b5-4690-4c12-9c7b-e785eb8d7336.png",
-    "link": "https://mprod-cdn.toffeelive.com/live/match-3/index.m3u8"
-  },
-  {
-    "id": "OyEz-ZgBEef-9-uVnhcx",
-    "category_name": "Live",
-    "name": "EPL Channel 4",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/OyEz-ZgBEef-9-uVnhcx/posters/f2143475-cf44-441a-b55d-58b2b5569aa5.png",
-    "link": "https://mprod-cdn.toffeelive.com/live/match-4/index.m3u8"
-  },
-  {
-    "id": "6CHi_5gBEef-9-uV-Bx_",
-    "category_name": "Live",
-    "name": "EPL Channel 5",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/6CHi_5gBEef-9-uV-Bx_/posters/95066512-a117-4532-8569-0d13ffc046ef.png",
-    "link": "https://mprod-cdn.toffeelive.com/live/match-5/index.m3u8"
-  },
-  {
-    "id": "6y_b4poBNnOkwJLWmn7X",
-    "category_name": "Live",
-    "name": "EPL Channel 6",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/6y_b4poBNnOkwJLWmn7X/posters/c1440521-da52-4cf7-b137-dd38d1de083a.png",
-    "link": ""
-  },
-  {
     "id": "py5j-JQBv9knK3AHxDTY",
     "category_name": "Sports",
     "name": "Sony Ten Sports 1 HD",
