@@ -47,42 +47,6 @@
     "cookie": "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibGRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29t:Expires=1783581257:KeyName=prod_linear:Signature=MBPzPhL-0DznAqZtYkLTJyVvJo5IwF-w-S8Jf87B8iLsGig7jJbtaepRWr2qAYL3oJYH0L1SkyP9a0BzbJdcBQ"
   },
   {
-    "id": "HHnAgJkBcqxnFHJBabwO",
-    "category_name": "Live",
-    "name": "BFL | Live 1",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/HHnAgJkBcqxnFHJBabwO/posters/c5bce54b-66b1-4e4f-9a7f-45a551e16f49.png",
-    "link": "https://prod-cdn01-live.toffeelive.com/live/match-11/index.m3u8?edge-cache-token=Expires=1783408517~Starts=1783408457~URLPrefix=aHR0cHM6Ly9wcm9kLWNkbjAxLWxpdmUudG9mZmVlbGl2ZS5jb20~Signature=SmiwGgP1SaEB4GkXUAlhvarkQ-6srRmJsbLyje4ror4tpD4PCrBH2rsbZb_HfIEChNnNYthnYtioZZZFbJOGBw"
-  },
-  {
-    "id": "MXnGgJkBcqxnFHJBILyR",
-    "category_name": "Live",
-    "name": "BFL | Live 2",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/MXnGgJkBcqxnFHJBILyR/posters/fc0d65fb-78c4-481a-a2ce-775796e3b39e.png",
-    "link": "https://prod-cdn01-live.toffeelive.com/live/match-12/index.m3u8?edge-cache-token=Expires=1783408517~Starts=1783408457~URLPrefix=aHR0cHM6Ly9wcm9kLWNkbjAxLWxpdmUudG9mZmVlbGl2ZS5jb20~Signature=SmiwGgP1SaEB4GkXUAlhvarkQ-6srRmJsbLyje4ror4tpD4PCrBH2rsbZb_HfIEChNnNYthnYtioZZZFbJOGBw"
-  },
-  {
-    "id": "LnlKhJkBcqxnFHJBU8GM",
-    "category_name": "Live",
-    "name": "BFL | Live 3",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/LnlKhJkBcqxnFHJBU8GM/posters/74e6a7bb-f850-4ec5-991f-7a882b04db37.png",
-    "link": "https://prod-cdn01-live.toffeelive.com/live/match-13/index.m3u8?edge-cache-token=Expires=1783408518~Starts=1783408458~URLPrefix=aHR0cHM6Ly9wcm9kLWNkbjAxLWxpdmUudG9mZmVlbGl2ZS5jb20~Signature=rav_8IXKyo0ERJebBycN91GOFmLun6PZjAw332yd9uNnkDhNhZM0P87NrtOTxqJk098g6PUXLI2nYvGoy68aCA"
-  },
-  {
-    "id": "Ey9jtJoBNnOkwJLWw06R",
-    "category_name": "Live",
-    "name": " BFL | Live 4",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/Ey9jtJoBNnOkwJLWw06R/posters/4e83252b-223d-42a6-a56b-8598aa17e2e8.png",
-    "link": "https://prod-cdn01-live.toffeelive.com/live/match-18/index.m3u8?edge-cache-token=Expires=1783408518~Starts=1783408458~URLPrefix=aHR0cHM6Ly9wcm9kLWNkbjAxLWxpdmUudG9mZmVlbGl2ZS5jb20~Signature=rav_8IXKyo0ERJebBycN91GOFmLun6PZjAw332yd9uNnkDhNhZM0P87NrtOTxqJk098g6PUXLI2nYvGoy68aCA"
-  },
-  {
-    "id": "PnZefJcBcqxnFHJBoxca",
-    "category_name": "Live",
-    "name": "ICC Test Championship Highlights",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/PnZefJcBcqxnFHJBoxca/posters/955ae898-8336-4936-8d78-c6b8866e35f7.png",
-    "link": "https://bldcmprod-cdn.toffeelive.com/cdn/live/icc_wtc_final/playlist.m3u8",
-    "cookie": "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibGRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29t:Expires=1783581258:KeyName=prod_linear:Signature=Pc09ALpBlpmRrmwq5R7fDRkwSo4d1_RGWk57XjU_bROCkbvGpTd1AVOTDFu9wKQa3WPS30VDWdQbm5fjg2a9Bw"
-  },
-  {
     "id": "PiL635oBEef-9-uV2uCe",
     "category_name": "News",
     "name": "Jamuna TV",
@@ -368,6 +332,14 @@
     "name": "Zee Bollywood",
     "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/OnSlPJYBcqxnFHJB6lFX/posters/d9ccb2a6-227f-4a41-8714-efaddab5cf5e.png",
     "link": "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_bollywood/playlist.m3u8",
+    "cookie": "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibGRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29t:Expires=1783581270:KeyName=prod_linear:Signature=OuKZNFysWRjtUOxlr0DQMiYraDDZZMvX-b43gXgoTezgf134lNumEBkPBEGlAx0bIn-yW-OvYLAZy54zf_ccAQ"
+  },
+   {
+    "id": "CXz4PJwBcqxnFHJBPwrG",
+    "category_name": "Movies",
+    "name": "Movie Bangla",
+    "logo": "https://assets-prod.services.toffeelive.com/w_480,q_75,f_webp/Ii5_-JQBv9knK3AHLDV3/posters/d961cc87-81b6-4b30-8414-8c0af2774818.webp",
+    "link": "https://bldcmprod-cdn.toffeelive.com/cdn/live/movie_bangla/playlist.m3u8",
     "cookie": "Edge-Cache-Cookie=URLPrefix=aHR0cHM6Ly9ibGRjbXByb2QtY2RuLnRvZmZlZWxpdmUuY29t:Expires=1783581270:KeyName=prod_linear:Signature=OuKZNFysWRjtUOxlr0DQMiYraDDZZMvX-b43gXgoTezgf134lNumEBkPBEGlAx0bIn-yW-OvYLAZy54zf_ccAQ"
   },
   {
